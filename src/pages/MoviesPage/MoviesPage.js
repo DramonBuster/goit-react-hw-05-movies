@@ -7,7 +7,6 @@ import MovieCard from '../../Components/MovieCard/MovieCard';
 import SearchBar from '../../Components/SearchBar/SearchBar';
 import Toastify from '../../Components/Toastify/Toastify';
 import NoResults from '../../Components/Noresults/Noresults';
-// import Button from '';
 
 const MovieWrapper = styled.div`
   padding: 20px 150px;
@@ -17,6 +16,33 @@ const MovieList = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
+`;
+
+const LoadMoreButton = styled.button`
+  display: block;
+  max-width: 140px;
+  padding: 8px 16px;
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  text-align: center;
+  color: white;
+  line-height: 1;
+  border: 1px solid white;
+  border-radius: 2px;
+  background-color: blue;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  margin-left: auto;
+  margin-right: auto;
+
+  :hover {
+    color: black;
+    background-color: lightblue;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.6);
+  }
 `;
 
 let getScrollPosition = null;
@@ -29,13 +55,6 @@ const scrollPositionY = () => {
 const scrollToBottom = () => {
   window.scrollTo({
     top: getScrollPosition,
-  });
-};
-
-const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth',
   });
 };
 
@@ -119,16 +138,9 @@ export default function MoviesPage() {
           </MovieList>
         )}
       </MovieWrapper>
-      {/* {movie.length > 15 && page < totalPages && (
-        <Button
-          name={'Load more'}
-          nameClass="load-button"
-          onClick={getLoadMore}
-        />
-      )} */}
-      {/* {movie.length > 15 && (
-        <Button name={'To UP'} nameClass="up-button" onClick={scrollTop} />
-      )} */}
+      {movie.length > 15 && page < totalPages && (
+        <LoadMoreButton onClick={getLoadMore}>LoadMore</LoadMoreButton>
+      )}
     </>
   );
 }

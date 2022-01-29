@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
+import ImageNotAvailable from '../../images/notavailable.png';
 
 const MovieItem = styled.li`
   border: 1px solid #18819e;
@@ -30,7 +31,7 @@ const MovieDescription = styled.div`
   min-height: 82px;
   padding: 5px 10px;
   font-size: 20px;
-  color: #fff;
+  color: white;
   line-height: 1.2;
   background-color: black;
 `;
@@ -63,7 +64,7 @@ export default function MovieCard({ element, url }) {
             src={
               element.poster_path
                 ? `https://image.tmdb.org/t/p/w500${element.poster_path}`
-                : 'PosterNotAvailable'
+                : ImageNotAvailable
             }
             alt={
               element.title || element.original_title

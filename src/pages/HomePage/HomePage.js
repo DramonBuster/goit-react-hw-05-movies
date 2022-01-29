@@ -5,7 +5,6 @@ import MovieCard from '../../Components/MovieCard/MovieCard';
 import Toastify from '../../Components/Toastify/Toastify';
 import LoadingLoader from '../../Components/Loader/Loader';
 import { getTrending } from '../../movies-api/movies-api';
-// import Button from 'components/Button';
 
 const HomeWrapper = styled.div`
   padding: 20px 150px;
@@ -14,7 +13,7 @@ const HomeWrapper = styled.div`
 const HomeTitle = styled.h1`
   font-size: 30px;
   font-weight: 700;
-  color: #fff;
+  color: white;
   line-height: 1;
   text-align: center;
   text-transform: uppercase;
@@ -27,6 +26,33 @@ const HomeList = styled.ul`
   padding-top: 20px;
 `;
 
+const LoadMoreButton = styled.button`
+  display: block;
+  max-width: 140px;
+  padding: 8px 16px;
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  text-align: center;
+  color: white;
+  line-height: 1;
+  border: 1px solid white;
+  border-radius: 2px;
+  background-color: blue;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  margin-left: auto;
+  margin-right: auto;
+
+  :hover {
+    color: black;
+    background-color: lightblue;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.6);
+  }
+`;
+
 let getScrollPosition = null;
 
 const scrollPositionY = () => {
@@ -37,13 +63,6 @@ const scrollPositionY = () => {
 const scrollToBottom = () => {
   window.scrollTo({
     top: getScrollPosition,
-  });
-};
-
-const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth',
   });
 };
 
@@ -113,16 +132,11 @@ const HomePage = () => {
           </HomeList>
         </HomeWrapper>
       )}
-      {/* {movieTrending.length > 15 && page < totalPages && (
-        <Button
-          name={'Load more'}
-          nameClass="load-button"
-          onClick={getLoadMore}
-        />
-      )} */}
-      {/* {movieTrending.length > 15 && (
-        <Button name={'To UP'} nameClass="up-button" onClick={scrollToTop} />
-      )} */}
+      {movieTrending.length > 15 && page < totalPages && (
+        <LoadMoreButton name={'Load more'} onClick={getLoadMore}>
+          Load More
+        </LoadMoreButton>
+      )}
     </>
   );
 };

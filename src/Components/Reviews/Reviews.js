@@ -5,7 +5,6 @@ import { getReviews } from '../../movies-api/movies-api';
 import LoadingLoader from '../Loader/Loader';
 import Toastify from '../Toastify/Toastify';
 import ReviewsItem from '../ReviewsItem/ReviewsItem';
-// import Button from 'components/Button';
 
 const ReviewsTitle = styled.p`
   padding-left: 200px;
@@ -18,6 +17,33 @@ const ReviewsList = styled.ul`
   padding-right: 150px;
 `;
 
+const LoadMoreButton = styled.button`
+  display: block;
+  max-width: 140px;
+  padding: 8px 16px;
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  text-align: center;
+  color: white;
+  line-height: 1;
+  border: 1px solid white;
+  border-radius: 2px;
+  background-color: blue;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  margin-left: auto;
+  margin-right: auto;
+
+  :hover {
+    color: black;
+    background-color: lightblue;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.6);
+  }
+`;
+
 let getScrollPosition = null;
 
 const scrollPositionY = () => {
@@ -28,13 +54,6 @@ const scrollPositionY = () => {
 const scrollToBottom = () => {
   window.scrollTo({
     top: getScrollPosition,
-  });
-};
-
-const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: 'smooth',
   });
 };
 
@@ -93,16 +112,9 @@ export default function Reviews() {
           ))}
         </ReviewsList>
       )}
-      {/* {reviews.length > 15 && page < totalPages && (
-        <Button
-          name={'Load more'}
-          nameClass="load-button"
-          onClick={getLoadMore}
-        />
-      )} */}
-      {/* {reviews.length > 5 && (
-        <Button name={'To UP'} nameClass="up-button" onClick={scrollToTop} />
-      )} */}
+      {reviews.length > 15 && page < totalPages && (
+        <LoadMoreButton onClick={getLoadMore}>Load More</LoadMoreButton>
+      )}
     </>
   );
 }

@@ -1,10 +1,9 @@
-import { useState, useEffect, lazy, useRef } from 'react';
+import { useState, useEffect, lazy } from 'react';
 import {
   Route,
   useParams,
   NavLink,
   useRouteMatch,
-  useHistory,
   useLocation,
 } from 'react-router-dom';
 import styled from 'styled-components';
@@ -13,7 +12,6 @@ import Loading from '../../Components/Loader/Loader';
 import Toastify from '../../Components/Toastify/Toastify';
 import NoResults from '../../Components/Noresults/Noresults';
 import ImageNotAvailable from '../../images/notavailable.png';
-// import Button from 'components/Button';
 
 const MovieDetailsContainer = styled.div`
   margin-left: auto;
@@ -42,12 +40,13 @@ const MovieDetailsImg = styled.img`
   object-fit: cover;
 `;
 
-const MovieDetailsDescription = styled.div``;
+const MovieDetailsDescription = styled.div`
+  color: white;
+`;
 
 const MovieDetailsTitle = styled.h2`
   margin-bottom: 20px;
   font-size: 30px;
-  color: #fff;
 `;
 
 const MovieDetailsList = styled.ul`
@@ -57,6 +56,8 @@ const MovieDetailsList = styled.ul`
 `;
 
 const MovieDetailsItem = styled.li`
+  color: white;
+
   :not(:last-child) {
     margin-bottom: 10px;
   }
@@ -90,16 +91,13 @@ const MovieDetailsGenresTitle = styled.h3`
 `;
 
 const MovieDetailsGenresList = styled.ul`
-  display: flex;
   padding-left: 20px;
   font-size: 20px;
 `;
 
 const MovieDetailsGenresItem = styled.li`
   :not(:last-child) {
-    margin-right: 15px;
-    padding-right: 15px;
-    border-right: 1px solid #212121;
+    margin-bottom: 10px;
   }
 `;
 
@@ -123,15 +121,15 @@ const MovieDetailsCountriesItem = styled.li`
 
 const AddInfoWrapper = styled.div`
   padding: 10px 150px;
-  border-top: 1px solid #fff;
-  border-bottom: 1px solid #fff;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
   background-color: rgba(0, 0, 0, 0.7);
   margin-bottom: 20px;
 `;
 
 const AddInfoTitle = styled.h3`
   font-size: 24px;
-  color: #fff;
+  color: white;
 `;
 
 const AddInfoList = styled.ul`
@@ -147,7 +145,7 @@ const AddInfoItem = styled.li`
 
 const AddInfoNavLink = styled(NavLink)`
   padding: 5px;
-  color: #fff;
+  color: white;
   line-height: 1;
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
 
@@ -175,12 +173,10 @@ const Status = {
 
 export default function MovieDetailsPage() {
   const { url, path } = useRouteMatch();
-  const history = useHistory();
   const location = useLocation();
   const { movieId } = useParams();
   const [movieInform, setMovieInform] = useState({});
   const [status, setStatus] = useState(null);
-  const refLocation = useRef(location);
 
   useEffect(() => {
     const { PENDING, RESOLVED, NOTFOUND } = Status;
@@ -201,21 +197,10 @@ export default function MovieDetailsPage() {
       });
   }, [movieId]);
 
-  // const onGoBack = () => {
-  //   if (!refLocation.current.state) return history.push('/movies');
-  //   const getStateFrom = refLocation.current.state.from;
-  //   history.push(
-  //     getStateFrom.search
-  //       ? getStateFrom.pathname + getStateFrom.search
-  //       : getStateFrom.pathname,
-  //   );
-  // };
-
   return (
     <>
       {status === 'pending' && <Loading />}
       <MovieDetailsContainer>
-        {/* <Button name={'Go Back'} nameClass="back-button" onClick={onGoBack} /> */}
         {status === 'notFound' && <NoResults />}
         {status === 'resolved' && (
           <>

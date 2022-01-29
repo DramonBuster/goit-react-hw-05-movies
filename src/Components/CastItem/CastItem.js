@@ -24,7 +24,7 @@ const Image = styled.img`
 const CastDescription = styled.div`
   flex-grow: 1;
   padding: 10px 20px;
-  color: #fff;
+  color: white;
   line-height: 1.2;
   background-color: black;
 `;

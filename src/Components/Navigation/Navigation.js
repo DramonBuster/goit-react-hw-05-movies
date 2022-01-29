@@ -1,10 +1,10 @@
-import { Route, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 const NavigationWrapper = styled.div`
   padding: 20px 150px;
   background-color: rgba(0, 0, 0, 0.7);
-  border-bottom: 1px solid #fff;
+  border-bottom: 1px solid white;
 `;
 
 const NavigationList = styled.ul`
@@ -19,7 +19,7 @@ const NavigationNavLink = styled(NavLink)`
   padding: 10px 2px;
   font-size: 34px;
   font-weight: 700;
-  color: #fff;
+  color: white;
   line-height: 1;
   text-transform: uppercase;
 

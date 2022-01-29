@@ -17,7 +17,7 @@ const SearchForm = styled.form`
   width: 100%;
   padding: 10px;
   border-radius: 5px;
-  background-color: #fff;
+  background-color: white;
   overflow: hidden;
 `;
 

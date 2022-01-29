@@ -14,6 +14,9 @@ const ReviewsListItem = styled.li`
 `;
 
 const ReviewsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin-right: 30px;
   border-right: 1px solid black;
   padding: 5px;
