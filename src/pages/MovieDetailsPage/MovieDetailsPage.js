@@ -1,9 +1,10 @@
-import { useState, useEffect, lazy } from 'react';
+import { useState, useEffect, lazy, useRef } from 'react';
 import {
   Route,
   useParams,
   NavLink,
   useRouteMatch,
+  useHistory,
   useLocation,
 } from 'react-router-dom';
 import styled from 'styled-components';
@@ -21,10 +22,7 @@ const MovieDetailsContainer = styled.div`
 
 const MovieDetailsWrapper = styled.div`
   display: flex;
-  margin-bottom: 20px;
-  padding-left: 150px;
-  padding-right: 150px;
-  padding-top: 20px;
+  padding: 20px 150px;
 `;
 
 const MovieDetailsWrapperImg = styled.div`
@@ -158,6 +156,32 @@ const AddInfoNavLink = styled(NavLink)`
   }
 `;
 
+const BackButton = styled.button`
+  display: block;
+  max-width: 140px;
+  padding: 8px 16px;
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  text-align: center;
+  color: white;
+  line-height: 1;
+  border: 1px solid white;
+  border-radius: 2px;
+  background-color: blue;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  margin-left: 150px;
+
+  :hover {
+    color: black;
+    background-color: lightblue;
+    box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.6);
+  }
+`;
+
 const Cast = lazy(() =>
   import('../../Components/Cast/Cast' /* webpackChunkName: "Cast" */),
 );
@@ -177,6 +201,8 @@ export default function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movieInform, setMovieInform] = useState({});
   const [status, setStatus] = useState(null);
+  const currentLocation = useRef(location);
+  const history = useHistory();
 
   useEffect(() => {
     const { PENDING, RESOLVED, NOTFOUND } = Status;
@@ -197,10 +223,24 @@ export default function MovieDetailsPage() {
       });
   }, [movieId]);
 
+  const previousPage = () => {
+    if (!currentLocation.current.state) {
+      return history.push('/movies');
+    }
+
+    const getStateFrom = currentLocation.current.state.from;
+    history.push(
+      getStateFrom.search
+        ? getStateFrom.pathname + getStateFrom.search
+        : getStateFrom.pathname,
+    );
+  };
+
   return (
     <>
       {status === 'pending' && <Loading />}
       <MovieDetailsContainer>
+        <BackButton onClick={previousPage}>Return</BackButton>
         {status === 'notFound' && <NoResults />}
         {status === 'resolved' && (
           <>
